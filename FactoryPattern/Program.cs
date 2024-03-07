@@ -1,14 +1,28 @@
-﻿namespace FactoryPattern
+﻿using FactoryPattern;
+
+namespace FactoryPattern
 {
     public class Program
     {
         static void Main(string[] args)
         {
-            IVehicle vehicle1 = VehicleFactory.GetVehicle(4);
-            vehicle1.Drive();
-
-            IVehicle vehicle2 = VehicleFactory.GetVehicle(2);
-            vehicle2.Drive();
+            Console.WriteLine("Enter the number of tires on the vehicle:");
+            if (int.TryParse(Console.ReadLine(), out int numberOfTires))
+            {
+                try
+                {
+                    IVehicle vehicle = VehicleFactory.GetVehicle(numberOfTires);
+                    vehicle.Drive();
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Invalid input. Please enter a valid number.");
+            }
         }
     }
 }
